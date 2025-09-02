@@ -1,0 +1,50 @@
+{% include 'header.html' %}
+
+<div class="card shadow m-5">
+    <div class="card-body">
+        <h5 class="p-2 text-danger" style="border-bottom: 2px solid orange;">Employee Login</h5>
+
+        <div class="container-fluid">
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <!-- Email ID -->
+                    <div class="col-sm-12 mb-3">
+                        <div class="form-group">
+                            <label for="emailid">Email ID</label>
+                            <input type="email" name="emailid" id="emailid" class="form-control"
+                                   placeholder="Enter email ID" required>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="col-sm-12 mb-3">
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" class="form-control"
+                                   placeholder="Enter password" required>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center mt-3">
+                        <input type="submit" value="Login" class="btn btn-primary px-5">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% if error == "no" %}
+<script>
+    alert('Login successful');
+    window.location = "{% url 'emp_home' %}";  <!-- 👈 redirect to dashboard after login -->
+</script>
+{% endif %}
+
+{% if error == "yes" %}
+<script>
+    alert('Invalid email or password. Please try again.');
+</script>
+{% endif %}
