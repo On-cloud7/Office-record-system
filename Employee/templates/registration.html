@@ -2,9 +2,10 @@
 
 <script>
     function checkpassword() {
-        if (document.Signup.pwd.value != document.Signup.confirm_pwd.value) {
+        if (document.sighup.pwd.value != document.sighup.confirm_pwd.value)
+        {
             alert('Password and Repeat Password Field Does not match');
-            document.Signup.confirm_pwd.focus();
+            document.sighup.confirm_pwd.focus();
             return false;
         }
         return true;
@@ -16,7 +17,7 @@
         <h5 class="p-2 text-danger" style="border-bottom: 2px solid orange;">Create an Account</h5>
 
         <div class="container-fluid">
-            <form method="post" name="Signup" onsubmit="return checkpassword()">
+            <form method="post" name="sighup" submit="return checkpassword()">
                 {% csrf_token %}
                 <div class="row">
                     <!-- First Name -->
