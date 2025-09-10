@@ -1,0 +1,72 @@
+{% extends "emp_base.html" %}
+
+{% block main %}
+
+<div class="card shadow m-2">
+    <div class="card-body">
+        <a href="" class="btn btn-primary float-right btn-sm">
+            Edit Work Experience
+        </a>
+        <h5 class="p-2 text-danger" style="border-bottom: 2px solid orange;">My Work Experience</h5>
+
+        <div class="container-fluid">
+            <table class="table table-bordered">
+                <!-- First Company -->
+                <tr>
+                    <th>First Company Name</th>
+                    <td>{{ experience.company1name|default:"None" }}</td>
+                </tr>
+                <tr>
+                    <th>First Job Designation</th>
+                    <td>{{ experience.company1desig|default:"None" }}</td>
+                </tr>
+                <tr>
+                    <th>First Job Salary</th>
+                    <td>{{ experience.company1salary|default:"None" }}</td>
+                </tr>
+                <tr>
+                    <th>First Job Duration</th>
+                    <td>{{ experience.company1duration|default:"None" }}</td>
+                </tr>
+
+                <!-- Second Company -->
+                <tr>
+                    <th>Second Company Name</th>
+                    <td>{{ experience.company2name|default:"None" }}</td>
+                </tr>
+                <tr>
+                    <th>Second Job Designation</th>
+                    <td>{{ experience.company2desig|default:"None" }}</td>
+                </tr>
+                <tr>
+                    <th>Second Job Salary</th>
+                    <td>{{ experience.company2salary|default:"None" }}</td>
+                </tr>
+                <tr>
+                    <th>Second Job Duration</th>
+                    <td>{{ experience.company2duration|default:"None" }}</td>
+                </tr>
+
+                <!-- Third Company -->
+                <tr>
+                    <th>Third Company Name</th>
+                    <td>{{ experience.company3name|default:"None" }}</td>
+                </tr>
+                <tr>
+                    <th>Third Job Designation</th>
+                    <td>{{ experience.company3desig|default:"None" }}</td>
+                </tr>
+                <tr>
+                    <th>Third Job Salary</th>
+                    <td>{{ experience.company3salary|default:"None" }}</td>
+                </tr>
+                <tr>
+                    <th>Third Job Duration</th>
+                    <td>{{ experience.company3duration|default:"None" }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

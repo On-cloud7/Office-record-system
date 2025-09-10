@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Employee.views import *
+from Employee.views import edit_experience
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +29,8 @@ urlpatterns = [
     path('logout',Logout,name='logout'),
     path('admin_login',admin_login,name='admin_login'),
     path('logout',Logout,name='logout'),
+    path('my_experience',my_experience,name='my_experience'),
+    path('edit_experience',edit_experience,name='edit_experience')
     
 
 ]
