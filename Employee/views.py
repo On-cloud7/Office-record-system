@@ -4,7 +4,7 @@ from .models import EmployeeDetails
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .models import *
-from .models import EmployeeDetails
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -54,55 +54,51 @@ def Logout(request):
     logout(request)
     return redirect('index')
 
+
+# @login_required(login_url='/emp_login/')
 def profile(request):
-    if not request.user.is_authenticated:
-        return redirect('emp_login')
     error = ""
-    # user = request.user
-    # employee = EmployeeDetails.objects.get(user=user)
+    user = request.user
 
-    employee = EmployeeDetails.objects.filter(user=request.user).first()
+    # Get employee details for the logged-in user
+    try:
+        employee = EmployeeDetails.objects.get(user=user)
+    except EmployeeDetails.DoesNotExist:
+        employee = None
 
-    if request.method == "PO[[[]":
-        fn = request.POST.get('first_name')
-        ln = request.POST.get('last_name')
-        ec = request.POST.get('employee_code')
-        dept = request.POST.get('department')
-        designation = request.POST.get('designation')   
-        contact = request.POST.get('contact')
-        jdate = request.POST.get('jdate') 
-        gender = request.POST.get('Gender')
+    if request.method == "POST":
+        fn = request.POST.get('firstname')
+        ln = request.POST.get('lastname')
+        ec = request.POST.get('empcode')
+        em = request.POST.get('email')
+        pwd = request.POST.get('pwd')
 
-        employee.user.first_name = fn
-        employee.user.last_name = ln
-        employee.empcode = ec
-        employee.empdept = dept
-        employee.designation =designation 
-        employee.contact = contact 
-        employee.gender = gender
+        try:
+            # Update the logged-in user instead of creating a new one
+            user.first_name = fn
+            user.last_name = ln
+            user.username = em
+            if pwd:   # only update password if entered
+                user.set_password(pwd)
+            user.save()
 
-        if jdate:
-            employee.joiningdate = jdate
+            # Update or create employee details
+            if employee:
+                employee.empcode = ec
+                employee.save()
+            else:
+                employee = EmployeeDetails.objects.create(user=user, empcode=ec)
+
+            error = "no"
+        except Exception as e:
+            print("Error while updating profile:", e)
+            error = "yes"
+
+    return render(request, 'profile.html', {'employee': employee, 'user': user, 'error': error})
 
         
-
-    # try:
-        employee.save()
-        employee.user.save()
-        error ="no"
-    # except:
-        error="yes"
-    return render(request,'profile.html',locals())
 
 
 def admin_login(request):
     return render(request, 'admin_login.html')
 
-def myexperience(request):
-    if not request.user.is_authenticated:
-        return redirect('emp_login')
-    error = ""
-    user = request.user
-    experience = EmployeeExperience.objects.get(user=user)
-
-    return render(request,'myexperience.html',locals())

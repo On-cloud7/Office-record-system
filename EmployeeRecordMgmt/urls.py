@@ -27,6 +27,5 @@ urlpatterns = [
     path('profile',profile,name='profile'),
     path('logout',Logout,name='logout'),
     path('admin_login',admin_login,name='admin_login'),
-    path('myexperience',myexperience,name='myexperience'),
 
 ]
