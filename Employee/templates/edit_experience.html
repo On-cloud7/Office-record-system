@@ -4,67 +4,111 @@
 
 <div class="card shadow m-2">
     <div class="card-body">
-        <a href="{% url 'my_experience'%}" class="btn btn-primary float-right btn-sm">
+        <a href="{% url 'my_experience' %}" class="btn btn-primary float-right btn-sm">
             View Work Experience
         </a>
-        <h5 class="p-2 text-danger" style="border-bottom: 2px solid orange;"> Work Experience</h5>
+        <h5 class="p-2 text-danger" style="border-bottom: 2px solid orange;">Edit Work Experience</h5>
 
         <div class="container-fluid">
-            <table class="table table-bordered">
-                <!-- First Company -->
-                <tr>
-                    <th>First Company Name</th>
-                    <td>{{ experience.company1name|default:"None" }}</td>
-                </tr>
-                <tr>
-                    <th>First Job Designation</th>
-                    <td>{{ experience.company1desig|default:"None" }}</td>
-                </tr>
-                <tr>
-                    <th>First Job Salary</th>
-                    <td>{{ experience.company1salary|default:"None" }}</td>
-                </tr>
-                <tr>
-                    <th>First Job Duration</th>
-                    <td>{{ experience.company1duration|default:"None" }}</td>
-                </tr>
+            <form method="post">
+                {% csrf_token %}
+                <table class="table table-bordered">
+                    <!-- First Company -->
+                    <tr>
+                        <th>First Company Name</th>
+                        <td>
+                            <input type="text" name="company1name" class="form-control" 
+                                   value="{{ experience.company1name|default:'' }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>First Job Designation</th>
+                        <td>
+                            <input type="text" name="company1desig" class="form-control" 
+                                   value="{{ experience.company1desig|default:'' }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>First Job Salary</th>
+                        <td>
+                            <input type="text" name="company1salary" class="form-control" 
+                                   value="{{ experience.company1salary|default:'' }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>First Job Duration</th>
+                        <td>
+                            <input type="text" name="company1duration" class="form-control" 
+                                   value="{{ experience.company1duration|default:'' }}">
+                        </td>
+                    </tr>
 
-                <!-- Second Company -->
-                <tr>
-                    <th>Second Company Name</th>
-                    <td>{{ experience.company2name|default:"None" }}</td>
-                </tr>
-                <tr>
-                    <th>Second Job Designation</th>
-                    <td>{{ experience.company2desig|default:"None" }}</td>
-                </tr>
-                <tr>
-                    <th>Second Job Salary</th>
-                    <td>{{ experience.company2salary|default:"None" }}</td>
-                </tr>
-                <tr>
-                    <th>Second Job Duration</th>
-                    <td>{{ experience.company2duration|default:"None" }}</td>
-                </tr>
+                    <!-- Second Company -->
+                    <tr>
+                        <th>Second Company Name</th>
+                        <td>
+                            <input type="text" name="company2name" class="form-control" 
+                                   value="{{ experience.company2name|default:'' }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Second Job Designation</th>
+                        <td>
+                            <input type="text" name="company2desig" class="form-control" 
+                                   value="{{ experience.company2desig|default:'' }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Second Job Salary</th>
+                        <td>
+                            <input type="text" name="company2salary" class="form-control" 
+                                   value="{{ experience.company2salary|default:'' }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Second Job Duration</th>
+                        <td>
+                            <input type="text" name="company2duration" class="form-control" 
+                                   value="{{ experience.company2duration|default:'' }}">
+                        </td>
+                    </tr>
 
-                <!-- Third Company -->
-                <tr>
-                    <th>Third Company Name</th>
-                    <td>{{ experience.company3name|default:"None" }}</td>
-                </tr>
-                <tr>
-                    <th>Third Job Designation</th>
-                    <td>{{ experience.company3desig|default:"None" }}</td>
-                </tr>
-                <tr>
-                    <th>Third Job Salary</th>
-                    <td>{{ experience.company3salary|default:"None" }}</td>
-                </tr>
-                <tr>
-                    <th>Third Job Duration</th>
-                    <td>{{ experience.company3duration|default:"None" }}</td>
-                </tr>
-            </table>
+                    <!-- Third Company -->
+                    <tr>
+                        <th>Third Company Name</th>
+                        <td>
+                            <input type="text" name="company3name" class="form-control" 
+                                   value="{{ experience.company3name|default:'' }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Third Job Designation</th>
+                        <td>
+                            <input type="text" name="company3desig" class="form-control" 
+                                   value="{{ experience.company3desig|default:'' }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Third Job Salary</th>
+                        <td>
+                            <input type="text" name="company3salary" class="form-control" 
+                                   value="{{ experience.company3salary|default:'' }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Third Job Duration</th>
+                        <td>
+                            <input type="text" name="company3duration" class="form-control" 
+                                   value="{{ experience.company3duration|default:'' }}">
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Submit button -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success px-4">Save Experience</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

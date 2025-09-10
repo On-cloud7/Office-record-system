@@ -156,7 +156,7 @@ def edit_experience(request):
     # Check if user is authenticated
     if user.is_authenticated:
         # Safely get employee record, if it exists
-        employee = EmployeeDetails.objects.filter(user=user).first()
+        experience = EmployeeExperience.objects.filter(user=user).first()
 
     if request.method == "POST" and employee:
         fn = request.POST.get('firstname')
@@ -169,20 +169,18 @@ def edit_experience(request):
         gender = request.POST.get('gender')
 
         # Update fields
-        employee.user.first_name = fn
-        employee.user.last_name = ln
-        employee.empcode = ec
-        employee.empdept = em
-        employee.designation = designation
-        employee.contact = contact
-        employee.gender = gender
+        experience.user.first_name = fn
+        experience.user.last_name = ln
+        experience.empcode = ec
+        experience.empdept = em
+        experience.designation = designation
+        experience.contact = contact
+        experience.gender = gender
 
-        if jdate:
-            employee.joiningdate = jdate
+
 
         try:
-            employee.user.save()
-            employee.save()
+            experience.user.save()
             error = "no"
         except Exception as e:
             print("Error saving profile:", e)
