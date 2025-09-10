@@ -13,7 +13,7 @@
                         <div class="form-group">
                             <label for="emailid">Email ID</label>
                             <input type="email" name="emailid" id="emailid" class="form-control"
-                                   placeholder="Enter email ID" required>
+                                placeholder="Enter email ID" required>
                         </div>
                     </div>
 
@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" name="password" id="password" class="form-control"
-                                   placeholder="Enter password" required>
+                                placeholder="Enter password" required>
                         </div>
                     </div>
 
@@ -38,8 +38,8 @@
 
 {% if error == "no" %}
 <script>
-    alert('Login successful');
-    window.location = "{% url 'emp_home' %}";  <!-- 👈 redirect to dashboard after login -->
+    alert('Login successful!');
+    window.location.href = "{% url 'emp_home' %}";  <!-- Redirect after login -->
 </script>
 {% endif %}
 

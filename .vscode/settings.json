@@ -1,10 +1,29 @@
 {
     "cSpell.words": [
         "checkpassword",
+        "coursegra",
+        "coursehsc",
+        "coursepg",
+        "coursessc",
+        "desig",
+        "emailedid",
+        "emailid",
         "empcode",
         "empdept",
         "jdate",
         "joiningdate",
-        "myexperience"
+        "myexperience",
+        "percentagegra",
+        "percentagehsc",
+        "percentagepg",
+        "percentagessc",
+        "schoolclggra",
+        "schoolclghsc",
+        "schoolclgpg",
+        "schoolclgssc",
+        "yearofpassinggra",
+        "yearofpassinghsc",
+        "yearofpassingpg",
+        "yearofpassingssc"
     ]
 }

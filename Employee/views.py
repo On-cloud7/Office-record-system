@@ -29,72 +29,93 @@ def registration(request):
 
 
 def emp_login(request):
-    error=""
+    error = ""
     if request.method == "POST":
-        u = request.POST['emailid']
-        p = request.POST['password']
-        user = authenticate(username=u, password=p)
-        if user:
-            login(request, user)
-            return redirect('emp_home') 
-            error ="no"
+        email = request.POST.get('emailid')
+        password = request.POST.get('password')
+
+        print("Login attempt:", email, password)  # Debug print
+
+        try:
+            # Try to find user by username first
+            user_obj = User.objects.get(username=email)
+        except User.DoesNotExist:
+            # If username is not email, try to find by email field
+            try:
+                user_obj = User.objects.get(email=email)
+            except User.DoesNotExist:
+                user_obj = None
+
+        if user_obj:
+            user = authenticate(username=user_obj.username, password=password)
+            if user:
+                login(request, user)
+                print("Login successful for:", user.username)
+                return redirect('emp_home')
+            else:
+                print("Authentication failed: wrong password")
+                error = "yes"
         else:
-            error="yes"
-    return render(request, 'emp_login.html',locals())
+            print("No user found with this email/username")
+            error = "yes"
 
-
+    return render(request, 'emp_login.html', {'error': error})
 
 def emp_home(request):
-    print("User:", request.user)
-    print("Authenticated:", request.user.is_authenticated)
-    return render(request, 'emp_home.html')
+    # if not request.user.is_authenticated:
+    #     return redirect ('emp_login')
+    return render (request,'emp_home.html')
 
 
 def Logout(request):
     logout(request)
     return redirect('index')
 
-
-# @login_required(login_url='/emp_login/')
 def profile(request):
     error = ""
+    employee = None
     user = request.user
 
-    # Get employee details for the logged-in user
-    try:
-        employee = EmployeeDetails.objects.get(user=user)
-    except EmployeeDetails.DoesNotExist:
-        employee = None
+    # Check if user is authenticated
+    if user.is_authenticated:
+        # Safely get employee record, if it exists
+        employee = EmployeeDetails.objects.filter(user=user).first()
 
-    if request.method == "POST":
+    if request.method == "POST" and employee:
         fn = request.POST.get('firstname')
         ln = request.POST.get('lastname')
         ec = request.POST.get('empcode')
-        em = request.POST.get('email')
-        pwd = request.POST.get('pwd')
+        em = request.POST.get('department')
+        designation = request.POST.get('designation')
+        contact = request.POST.get('contact')
+        jdate = request.POST.get('jdate')
+        gender = request.POST.get('gender')
+
+        # Update fields
+        employee.user.first_name = fn
+        employee.user.last_name = ln
+        employee.empcode = ec
+        employee.empdept = em
+        employee.designation = designation
+        employee.contact = contact
+        employee.gender = gender
+
+        if jdate:
+            employee.joiningdate = jdate
 
         try:
-            # Update the logged-in user instead of creating a new one
-            user.first_name = fn
-            user.last_name = ln
-            user.username = em
-            if pwd:   # only update password if entered
-                user.set_password(pwd)
-            user.save()
-
-            # Update or create employee details
-            if employee:
-                employee.empcode = ec
-                employee.save()
-            else:
-                employee = EmployeeDetails.objects.create(user=user, empcode=ec)
-
+            employee.user.save()
+            employee.save()
             error = "no"
         except Exception as e:
-            print("Error while updating profile:", e)
+            print("Error saving profile:", e)
             error = "yes"
 
-    return render(request, 'profile.html', {'employee': employee, 'user': user, 'error': error})
+    # Render profile page, pass employee (could be None for anonymous users)
+    return render(request, 'profile.html', {'employee': employee, 'error': error})
+
+        
+
 
         
 
